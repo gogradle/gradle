@@ -217,9 +217,32 @@ class UnitTestAndCompilePlugin : Plugin<Project> {
         inputs.property("javaInstallation", Callable { javaInstallationForTest.vendorAndMajorVersion })
     }
 
+    /**
+     * Generally, we have two build steps running tests:
+     *
+     * - GRADLE_RUNNER: Runs all tests, but ignore failures.
+     * - GRADLE_RERUNNER: Only runs test classes which failed in previous GRADLE_RUNNER, and doesn't ignore failures.
+     *
+     * The intention is mitigating the impact of flakiness:
+     *
+     * - If GRADLE_RUNNER fails but GRADLE_RERUNNER succeeds, the whole build's status will still be successful and won't interrupt TeamCity.
+     *   The flaky tests will be recognized and process in later TAG_BUILD step.
+     * - If GRADLE_RUNNER succeeds, GRADLE_RERUNNER does nothing - it doesn't run clean tasks so everything should be UP-TO-DATE.
+     * - If GRADLE_RUNNER and GRADLE_RERUNNER both fails, the whole build's status will be failure. This indicates a real problem.
+     */
     private
-    fun Test.onlyRunPreviousFailedClassesIfNecessary() {
-        if (project.stringPropertyOrEmpty("onlyPreviousFailedTestClasses").toBoolean()) {
+    fun Project.isRerun() = project.stringPropertyOrEmpty("rerunFailedTests").toBoolean()
+
+    private
+    fun Test.ignoreFailuresOnFirstRun() {
+        if (!project.isRerun()) {
+            ignoreFailures = true
+        }
+    }
+
+    private
+    fun Test.onlyRunPreviousFailedClassesOnRerun() {
+        if (project.isRerun()) {
             val previousFailedClasses = getPreviousFailedTestClasses()
             if (previousFailedClasses.isEmpty()) {
                 enabled = false
@@ -236,7 +259,9 @@ class UnitTestAndCompilePlugin : Plugin<Project> {
 
             configureJvmForTest()
 
-            onlyRunPreviousFailedClassesIfNecessary()
+            ignoreFailuresOnFirstRun()
+
+            onlyRunPreviousFailedClassesOnRerun()
 
             doFirst {
                 if (BuildEnvironment.isCiServer) {

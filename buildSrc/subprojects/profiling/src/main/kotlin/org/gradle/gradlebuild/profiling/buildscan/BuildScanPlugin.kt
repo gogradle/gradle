@@ -94,7 +94,7 @@ open class BuildScanPlugin : Plugin<Project> {
 
     private
     fun Project.tagRerunTests() {
-        if (stringPropertyOrEmpty("onlyPreviousFailedTestClasses").toBoolean()) {
+        if (stringPropertyOrEmpty("rerunFailedTests").toBoolean()) {
             buildScan.tag("RERUN_TESTS")
         }
     }
