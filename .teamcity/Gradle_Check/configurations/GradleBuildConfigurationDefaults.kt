@@ -24,9 +24,9 @@ fun shouldBeSkipped(subProject: GradleSubproject, testConfig: TestCoverage): Boo
     return testConfig.os.ignoredSubprojects.contains(subProject.name)
 }
 
-fun gradleParameterString(os: OS = OS.linux, daemon: Boolean = true) = gradleParameters(os, daemon).joinToString(separator = " ")
+fun gradleParameterString(daemon: Boolean = true) = gradleParameters(daemon).joinToString(separator = " ")
 
-fun gradleParameters(os: OS = OS.linux, daemon: Boolean = true, isContinue: Boolean = true): List<String> =
+fun gradleParameters(daemon: Boolean = true, isContinue: Boolean = true): List<String> =
     listOf(
         "-PmaxParallelForks=%maxParallelForks%",
         "-s",
@@ -118,24 +118,24 @@ fun checkCleanM2Step(buildType: BaseGradleBuildType, os: OS = OS.linux) {
     }
 }
 
-fun verifyTestFilesCleanupStep(buildType: BaseGradleBuildType, os: OS = OS.linux, daemon: Boolean = true) {
+fun verifyTestFilesCleanupStep(buildType: BaseGradleBuildType, daemon: Boolean = true) {
     buildType.steps {
         gradleWrapper {
             name = "VERIFY_TEST_FILES_CLEANUP"
             tasks = "verifyTestFilesCleanup"
-            gradleParams = gradleParameterString(os, daemon)
+            gradleParams = gradleParameterString(daemon)
         }
     }
 }
 
-fun tagBuildStep(model: CIBuildModel, buildType: BaseGradleBuildType, os: OS = OS.linux, daemon: Boolean = true) {
+fun tagBuildStep(model: CIBuildModel, buildType: BaseGradleBuildType, daemon: Boolean = true) {
     buildType.steps {
         if (model.tagBuilds) {
             gradleWrapper {
                 name = "TAG_BUILD"
                 executionMode = BuildStep.ExecutionMode.ALWAYS
                 tasks = "tagBuild"
-                gradleParams = "${gradleParameterString(os, daemon)} -PteamCityUsername=%teamcity.username.restbot% -PteamCityPassword=%teamcity.password.restbot% -PteamCityBuildId=%teamcity.build.id% -PgithubToken=%github.ci.oauth.token%"
+                gradleParams = "${gradleParameterString(daemon)} -PteamCityUsername=%teamcity.username.restbot% -PteamCityPassword=%teamcity.password.restbot% -PteamCityBuildId=%teamcity.build.id% -PgithubToken=%github.ci.oauth.token%"
             }
         }
     }
@@ -149,7 +149,7 @@ fun gradleRunnerStep(model: CIBuildModel, buildType: BaseGradleBuildType, gradle
             name = "GRADLE_RUNNER"
             tasks = "clean $gradleTasks"
             gradleParams = (
-                listOf(gradleParameterString(os, daemon)) +
+                listOf(gradleParameterString(daemon)) +
                     buildType.buildCache.gradleParameters(os) +
                     listOf(extraParameters) +
                     "-PteamCityUsername=%teamcity.username.restbot%" +
@@ -167,10 +167,10 @@ fun gradleRerunnerStep(model: CIBuildModel, buildType: BaseGradleBuildType, grad
     buildType.steps {
         gradleWrapper {
             name = "GRADLE_RERUNNER"
-            tasks = "$gradleTasks"
+            tasks = gradleTasks
             executionMode = BuildStep.ExecutionMode.RUN_ON_FAILURE
             gradleParams = (
-                listOf(gradleParameterString(os, daemon)) +
+                listOf(gradleParameterString(daemon)) +
                     buildType.buildCache.gradleParameters(os) +
                     listOf(extraParameters) +
                     "-PteamCityUsername=%teamcity.username.restbot%" +
@@ -191,7 +191,7 @@ fun killProcessStep(buildType: BaseGradleBuildType, stepName: String, os: OS = O
                 name = stepName
                 executionMode = BuildStep.ExecutionMode.ALWAYS
                 tasks = "killExistingProcessesStartedByGradle"
-                gradleParams = gradleParameterString(os, daemon)
+                gradleParams = gradleParameterString(daemon)
             }
         }
     }
@@ -205,8 +205,8 @@ fun applyDefaults(model: CIBuildModel, buildType: BaseGradleBuildType, gradleTas
     buildType.steps.extraSteps()
 
     checkCleanM2Step(buildType, os)
-    verifyTestFilesCleanupStep(buildType, os, daemon)
-    tagBuildStep(model, buildType, os, daemon)
+    verifyTestFilesCleanupStep(buildType, daemon)
+    tagBuildStep(model, buildType, daemon)
 
     applyDefaultDependencies(model, buildType, notQuick)
 }
@@ -226,8 +226,8 @@ fun applyFunctionalTestDefaults(model: CIBuildModel, buildType: BaseGradleBuildT
     buildType.steps.extraSteps()
 
     checkCleanM2Step(buildType, os)
-    verifyTestFilesCleanupStep(buildType, os, daemon)
-    tagBuildStep(model, buildType, os, daemon)
+    verifyTestFilesCleanupStep(buildType, daemon)
+    tagBuildStep(model, buildType, daemon)
 
     applyDefaultDependencies(model, buildType, notQuick)
 }
