@@ -173,6 +173,15 @@ fun applyDefaults(model: CIBuildModel, buildType: BaseGradleBuildType, gradleTas
                 gradleParams = "$gradleParameterString -PteamCityUsername=%teamcity.username.restbot% -PteamCityPassword=%teamcity.password.restbot% -PteamCityBuildId=%teamcity.build.id% -PgithubToken=%github.ci.oauth.token%"
             }
         }
+
+        if(gradleTasks.contains("compileAllBuild")) {
+            gradleWrapper {
+                name = "MARK_SUCCESSFUL"
+                tasks = "markAsSuccessful"
+                gradleParams = gradleParameterString
+                executionMode = BuildStep.ExecutionMode.RUN_ON_FAILURE
+            }
+        }
     }
 
     applyDefaultDependencies(model, buildType, notQuick)

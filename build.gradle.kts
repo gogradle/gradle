@@ -386,3 +386,9 @@ tasks.register<Zip>("allIncubationReportsZip") {
 }
 
 fun Project.collectAllIncubationReports() = subprojects.flatMap { it.tasks.withType(IncubatingApiReportTask::class) }
+
+tasks.register("markAsSuccessful") {
+    doLast {
+        println("##teamcity[buildStatus status='SUCCESS' text='mark as successful']")
+    }
+}
