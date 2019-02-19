@@ -17,6 +17,7 @@
 package org.gradle.api.tasks.diagnostics
 
 import groovy.transform.CompileStatic
+import org.gradle.api.JavaVersion
 import org.gradle.integtests.fixtures.AbstractIntegrationSpec
 import org.gradle.integtests.fixtures.FeaturePreviewsFixture
 import org.gradle.integtests.fixtures.resolve.ResolveTestFixture
@@ -1704,6 +1705,7 @@ project :
    variant "runtimeElements" [
       org.gradle.usage               = java-runtime-jars (not requested)
       org.gradle.dependency.bundling = external (not requested)
+      org.gradle.java.min.platform   = ${JavaVersion.current().majorVersion} (not requested)
    ]
 
 project :
@@ -1802,6 +1804,7 @@ project :impl
    variant "runtimeElements" [
       org.gradle.usage               = java-runtime-jars (not requested)
       org.gradle.dependency.bundling = external (not requested)
+      org.gradle.java.min.platform   = ${JavaVersion.current().majorVersion} (not requested)
    ]
 
 project :impl
@@ -1959,6 +1962,7 @@ project :api
    variant "apiElements" [
       org.gradle.usage               = java-api-jars (compatible with: java-api)
       org.gradle.dependency.bundling = external (not requested)
+      org.gradle.java.min.platform   = ${JavaVersion.current().majorVersion} (not requested)
    ]
 
 project :api
@@ -1975,6 +1979,7 @@ project :some:deeply:nested
    variant "apiElements" [
       org.gradle.usage               = java-api-jars (compatible with: java-api)
       org.gradle.dependency.bundling = external (not requested)
+      org.gradle.java.min.platform   = ${JavaVersion.current().majorVersion} (not requested)
    ]
 
 project :some:deeply:nested
@@ -1990,6 +1995,7 @@ project :some:deeply:nested
    variant "apiElements" [
       org.gradle.usage               = java-api-jars (compatible with: java-api)
       org.gradle.dependency.bundling = external (not requested)
+      org.gradle.java.min.platform   = ${JavaVersion.current().majorVersion} (not requested)
    ]
 
 project :some:deeply:nested
