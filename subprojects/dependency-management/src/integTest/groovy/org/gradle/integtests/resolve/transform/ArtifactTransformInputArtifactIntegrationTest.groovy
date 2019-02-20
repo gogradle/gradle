@@ -43,6 +43,7 @@ class ArtifactTransformInputArtifactIntegrationTest extends AbstractDependencyRe
                 
                 void transform(TransformOutputs outputs) {
                     println "processing \${input.name}"
+                    assert input.file
                 }
             }
         """
@@ -191,7 +192,7 @@ class ArtifactTransformInputArtifactIntegrationTest extends AbstractDependencyRe
                         println "processing missing \${input.name}"
                     }
                     def output = outputs.file(input.name + ".green")
-                    output.text = "green"
+                    output.text = input.list().length + ".green"
                 }
             }
         """
@@ -448,7 +449,7 @@ class ArtifactTransformInputArtifactIntegrationTest extends AbstractDependencyRe
                 void transform(TransformOutputs outputs) {
                     println "processing \${input.name}"
                     def output = outputs.file(input.name + ".green")
-                    output.text = "green"
+                    output.text = input.list().length + ".green"
                 }
             }
         """
@@ -620,7 +621,7 @@ class ArtifactTransformInputArtifactIntegrationTest extends AbstractDependencyRe
                 void transform(TransformOutputs outputs) {
                     println "processing \${input.name}"
                     def output = outputs.file(input.name + ".green")
-                    output.text = "green"
+                    output.text = input.list().length + ".green"
                 }
             }
         """
