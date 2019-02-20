@@ -376,10 +376,13 @@ class DeleterTest extends Specification {
     }
 
     private static void createNewFiles(File... files) {
-        // Set last modified a bit in the future in order for existing test files to be considered old comparatively
-        files.each {
+        // Wait a bit before creating new files in order for existing test files to be considered old comparatively
+        def toCreate = files.findAll { !it.exists() }
+        if (!toCreate.isEmpty()) {
+            Thread.sleep(OperatingSystem.current().isWindows() ? 500 : 250)
+        }
+        toCreate.each {
             it.text = ""
-            it.setLastModified(System.currentTimeMillis() + (OperatingSystem.current().isWindows() ? 500 : 250))
         }
     }
 

@@ -194,7 +194,7 @@ public class Deleter {
         while (!stack.isEmpty() && paths.size() < MAX_REPORTED_PATHS) {
             File current = stack.pop();
             String absolutePath = current.getAbsolutePath();
-            if (!current.equals(directory) && !failedPaths.contains(absolutePath) && current.lastModified() >= startTime) {
+            if (!current.equals(directory) && !failedPaths.contains(absolutePath) && current.lastModified() > startTime) {
                 paths.add(absolutePath);
             }
             if (current.isDirectory()) {
