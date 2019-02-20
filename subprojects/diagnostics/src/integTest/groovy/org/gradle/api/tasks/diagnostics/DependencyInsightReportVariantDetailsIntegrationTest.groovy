@@ -57,7 +57,7 @@ class DependencyInsightReportVariantDetailsIntegrationTest extends AbstractInteg
    variant "$expectedVariant" [
       $expectedAttributes
       org.gradle.dependency.bundling = external (not requested)
-      org.gradle.java.min.platform   = ${JavaVersion.current().majorVersion}
+      org.gradle.jvm.platform        = ${JavaVersion.current().majorVersion}
    ]
 
 project :$expectedProject
@@ -103,13 +103,13 @@ project :$expectedProject
         then:
         outputContains """org.test:leaf:1.0
    variant "api" [
-      org.gradle.usage             = java-api
-      org.gradle.test              = published attribute (not requested)
-      org.gradle.status            = release (not requested)
+      org.gradle.usage        = java-api
+      org.gradle.test         = published attribute (not requested)
+      org.gradle.status       = release (not requested)
 
       Requested attributes not found in the selected variant:
-         org.gradle.blah              = something
-         org.gradle.java.min.platform = ${JavaVersion.current().majorVersion}
+         org.gradle.blah         = something
+         org.gradle.jvm.platform = ${JavaVersion.current().majorVersion}
    ]
 
 org.test:leaf:1.0

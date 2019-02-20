@@ -1705,7 +1705,7 @@ project :
    variant "runtimeElements" [
       org.gradle.usage               = java-runtime-jars (not requested)
       org.gradle.dependency.bundling = external (not requested)
-      org.gradle.java.min.platform   = ${JavaVersion.current().majorVersion} (not requested)
+      org.gradle.jvm.platform        = ${JavaVersion.current().majorVersion} (not requested)
    ]
 
 project :
@@ -1804,7 +1804,7 @@ project :impl
    variant "runtimeElements" [
       org.gradle.usage               = java-runtime-jars (not requested)
       org.gradle.dependency.bundling = external (not requested)
-      org.gradle.java.min.platform   = ${JavaVersion.current().majorVersion} (not requested)
+      org.gradle.jvm.platform        = ${JavaVersion.current().majorVersion} (not requested)
    ]
 
 project :impl
@@ -1858,7 +1858,7 @@ org:leaf4:1.0
       org.gradle.component.category = library (not requested)
 
       Requested attributes not found in the selected variant:
-         org.gradle.java.min.platform  = ${JavaVersion.current().majorVersion}
+         org.gradle.jvm.platform       = ${JavaVersion.current().majorVersion}
    ]
 
 org:leaf4:1.0
@@ -1895,7 +1895,7 @@ org:leaf1:1.0
       org.gradle.component.category = library (not requested)
 
       Requested attributes not found in the selected variant:
-         org.gradle.java.min.platform  = ${JavaVersion.current().majorVersion}
+         org.gradle.jvm.platform       = ${JavaVersion.current().majorVersion}
    ]
 
 org:leaf1:1.0
@@ -1914,7 +1914,7 @@ org:leaf2:1.0
       org.gradle.component.category = library (not requested)
 
       Requested attributes not found in the selected variant:
-         org.gradle.java.min.platform  = ${JavaVersion.current().majorVersion}
+         org.gradle.jvm.platform       = ${JavaVersion.current().majorVersion}
    ]
 
 org:leaf2:1.0
@@ -1971,7 +1971,7 @@ project :api
    variant "apiElements" [
       org.gradle.usage               = java-api-jars (compatible with: java-api)
       org.gradle.dependency.bundling = external (not requested)
-      org.gradle.java.min.platform   = ${JavaVersion.current().majorVersion}
+      org.gradle.jvm.platform        = ${JavaVersion.current().majorVersion}
    ]
 
 project :api
@@ -1988,7 +1988,7 @@ project :some:deeply:nested
    variant "apiElements" [
       org.gradle.usage               = java-api-jars (compatible with: java-api)
       org.gradle.dependency.bundling = external (not requested)
-      org.gradle.java.min.platform   = ${JavaVersion.current().majorVersion}
+      org.gradle.jvm.platform        = ${JavaVersion.current().majorVersion}
    ]
 
 project :some:deeply:nested
@@ -2004,7 +2004,7 @@ project :some:deeply:nested
    variant "apiElements" [
       org.gradle.usage               = java-api-jars (compatible with: java-api)
       org.gradle.dependency.bundling = external (not requested)
-      org.gradle.java.min.platform   = ${JavaVersion.current().majorVersion}
+      org.gradle.jvm.platform        = ${JavaVersion.current().majorVersion}
    ]
 
 project :some:deeply:nested
@@ -2057,7 +2057,7 @@ org:leaf3:1.0
       org.gradle.component.category = library (not requested)
 
       Requested attributes not found in the selected variant:
-         org.gradle.java.min.platform  = ${JavaVersion.current().majorVersion}
+         org.gradle.jvm.platform       = ${JavaVersion.current().majorVersion}
    ]
 
 org:leaf3:1.0
@@ -2160,7 +2160,7 @@ foo:foo:1.0
       org.gradle.component.category = library (not requested)
 
       Requested attributes not found in the selected variant:
-         org.gradle.java.min.platform  = ${JavaVersion.current().majorVersion}
+         org.gradle.jvm.platform       = ${JavaVersion.current().majorVersion}
    ]
    Selection reasons:
       - By constraint : $rejected
@@ -2215,7 +2215,7 @@ org:foo -> $selected
       org.gradle.component.category = library (not requested)
 
       Requested attributes not found in the selected variant:
-         org.gradle.java.min.platform  = ${JavaVersion.current().majorVersion}
+         org.gradle.jvm.platform       = ${JavaVersion.current().majorVersion}
    ]
    Selection reasons:
       - By constraint : ${rejected}${reason}
@@ -2267,7 +2267,7 @@ org:foo -> $selected
       org.gradle.component.category = library (not requested)
 
       Requested attributes not found in the selected variant:
-         org.gradle.java.min.platform  = ${JavaVersion.current().majorVersion}
+         org.gradle.jvm.platform       = ${JavaVersion.current().majorVersion}
    ]
    Selection reasons:
       - Was requested : ${rejected}${reason}
@@ -2316,7 +2316,7 @@ org:foo:${displayVersion} -> $selected
       org.gradle.component.category = library (not requested)
 
       Requested attributes not found in the selected variant:
-         org.gradle.java.min.platform  = ${JavaVersion.current().majorVersion}
+         org.gradle.jvm.platform       = ${JavaVersion.current().majorVersion}
    ]
    Selection reasons:
       - Was requested : didn't match versions 2.0, 1.5, 1.4
@@ -2371,7 +2371,7 @@ org:foo:[1.1,1.3] -> 1.3
       org.gradle.component.category = library (not requested)
 
       Requested attributes not found in the selected variant:
-         org.gradle.java.min.platform  = ${JavaVersion.current().majorVersion}
+         org.gradle.jvm.platform       = ${JavaVersion.current().majorVersion}
    ]
    Selection reasons:
       - Was requested : rejected versions 1.2, 1.1
@@ -2386,7 +2386,7 @@ org:foo:1.1
       org.gradle.component.category = library (not requested)
 
       Requested attributes not found in the selected variant:
-         org.gradle.java.min.platform  = ${JavaVersion.current().majorVersion}
+         org.gradle.jvm.platform       = ${JavaVersion.current().majorVersion}
    ]
    Selection reasons:
       - Was requested : rejected version 1.2
@@ -2445,7 +2445,7 @@ org:bar:1.0
       org.gradle.component.category = library (not requested)
 
       Requested attributes not found in the selected variant:
-         org.gradle.java.min.platform  = ${JavaVersion.current().majorVersion}
+         org.gradle.jvm.platform       = ${JavaVersion.current().majorVersion}
    ]
    Selection reasons:
       - Rejection : 1.2 by rule because version 1.2 is bad
@@ -2461,7 +2461,7 @@ org:foo:1.1
       org.gradle.component.category = library (not requested)
 
       Requested attributes not found in the selected variant:
-         org.gradle.java.min.platform  = 11
+         org.gradle.jvm.platform       = ${JavaVersion.current().majorVersion}
    ]
    Selection reasons:
       - Was requested : rejected version 1.2
@@ -2505,7 +2505,7 @@ org:leaf:1.0 (by constraint)
       org.gradle.component.category = library (not requested)
 
       Requested attributes not found in the selected variant:
-         org.gradle.java.min.platform  = ${JavaVersion.current().majorVersion}
+         org.gradle.jvm.platform       = ${JavaVersion.current().majorVersion}
    ]
 
 org:leaf:1.0
@@ -2557,7 +2557,7 @@ org.test:leaf:1.0
       org.gradle.component.category = library (not requested)
 
       Requested attributes not found in the selected variant:
-         org.gradle.java.min.platform  = ${JavaVersion.current().majorVersion}
+         org.gradle.jvm.platform       = ${JavaVersion.current().majorVersion}
    ]
    Selection reasons:
       - Was requested : first reason
@@ -2738,7 +2738,7 @@ org:foo:1.0
       org.gradle.component.category = library (not requested)
 
       Requested attributes not found in the selected variant:
-         org.gradle.java.min.platform  = ${JavaVersion.current().majorVersion}
+         org.gradle.jvm.platform       = ${JavaVersion.current().majorVersion}
    ]
    Selection reasons:
       - Was requested : rejected versions 1.2, 1.1
@@ -2794,7 +2794,7 @@ org:foo:{require [1.0,); reject 1.1} -> 1.0
       org.gradle.component.category = library (not requested)
 
       Requested attributes not found in the selected variant:
-         org.gradle.java.min.platform  = ${JavaVersion.current().majorVersion}
+         org.gradle.jvm.platform       = ${JavaVersion.current().majorVersion}
    ]
    Selection reasons:
       - Was requested : first reason
@@ -2859,16 +2859,16 @@ org:foo:1.0
       org.gradle.component.category = library (not requested)
 
       Requested attributes not found in the selected variant:
-         org.gradle.java.min.platform  = ${JavaVersion.current().majorVersion}
+         org.gradle.jvm.platform       = ${JavaVersion.current().majorVersion}
    ]
    Selection reasons:
       - Rejection : version 1.2:
           - Attribute 'color' didn't match. Requested 'blue', was: 'red'
-          - Attribute 'org.gradle.java.min.platform' didn't match. Requested '${JavaVersion.current().majorVersion}', was: not found
+          - Attribute 'org.gradle.jvm.platform' didn't match. Requested '${JavaVersion.current().majorVersion}', was: not found
           - Attribute 'org.gradle.usage' didn't match. Requested 'java-api', was: not found
       - Rejection : version 1.1:
           - Attribute 'color' didn't match. Requested 'blue', was: 'green'
-          - Attribute 'org.gradle.java.min.platform' didn't match. Requested '${JavaVersion.current().majorVersion}', was: not found
+          - Attribute 'org.gradle.jvm.platform' didn't match. Requested '${JavaVersion.current().majorVersion}', was: not found
           - Attribute 'org.gradle.usage' didn't match. Requested 'java-api', was: not found
 
 org:foo:[1.0,) -> 1.0
@@ -2931,7 +2931,7 @@ planet:mercury:1.0.2
       org.gradle.component.category = library (not requested)
 
       Requested attributes not found in the selected variant:
-         org.gradle.java.min.platform  = ${JavaVersion.current().majorVersion}
+         org.gradle.jvm.platform       = ${JavaVersion.current().majorVersion}
    ]
    Selection reasons:
       - By conflict resolution : between versions 1.0.2 and 1.0.1
@@ -2961,7 +2961,7 @@ planet:venus:2.0.1
       org.gradle.component.category = library (not requested)
 
       Requested attributes not found in the selected variant:
-         org.gradle.java.min.platform  = ${JavaVersion.current().majorVersion}
+         org.gradle.jvm.platform       = ${JavaVersion.current().majorVersion}
    ]
    Selection reasons:
       - By conflict resolution : between versions 2.0.0, 2.0.1 and 1.0
@@ -2991,7 +2991,7 @@ planet:pluto:1.0.0
       org.gradle.component.category = library (not requested)
 
       Requested attributes not found in the selected variant:
-         org.gradle.java.min.platform  = ${JavaVersion.current().majorVersion}
+         org.gradle.jvm.platform       = ${JavaVersion.current().majorVersion}
    ]
 
 planet:pluto:1.0.0

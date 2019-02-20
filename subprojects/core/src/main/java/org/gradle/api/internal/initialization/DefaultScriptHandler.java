@@ -21,6 +21,7 @@ import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.artifacts.ConfigurationContainer;
 import org.gradle.api.artifacts.dsl.DependencyHandler;
 import org.gradle.api.artifacts.dsl.RepositoryHandler;
+import org.gradle.api.attributes.AttributeContainer;
 import org.gradle.api.attributes.Usage;
 import org.gradle.api.attributes.java.TargetJavaPlatform;
 import org.gradle.api.initialization.dsl.ScriptHandler;
@@ -113,8 +114,9 @@ public class DefaultScriptHandler implements ScriptHandler, ScriptHandlerInterna
         }
         if (classpathConfiguration == null) {
             classpathConfiguration = configContainer.create(CLASSPATH_CONFIGURATION);
-            classpathConfiguration.getAttributes().attribute(Usage.USAGE_ATTRIBUTE, NamedObjectInstantiator.INSTANCE.named(Usage.class, Usage.JAVA_RUNTIME));
-            classpathConfiguration.getAttributes().attribute(TargetJavaPlatform.MINIMAL_TARGET_PLATFORM_ATTRIBUTE, Integer.valueOf(JavaVersion.current().getMajorVersion()));
+            AttributeContainer attributes = classpathConfiguration.getAttributes();
+            attributes.attribute(Usage.USAGE_ATTRIBUTE, NamedObjectInstantiator.INSTANCE.named(Usage.class, Usage.JAVA_RUNTIME));
+            attributes.attribute(TargetJavaPlatform.TARGET_PLATFORM_ATTRIBUTE, Integer.valueOf(JavaVersion.current().getMajorVersion()));
         }
     }
 
